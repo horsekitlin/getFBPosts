@@ -34,13 +34,13 @@ let Fans = new FansBase('fans', new Schema({
     initial : {
         type : Boolean,
         default : false,
-        enums : [true, false]
+        enum : [true, false]
     },
     days : {
         sharedposts : {
             type : Boolean,
             default : false,
-            enums : [false, true]
+            enum : [false, true]
         }
     },
     lock : {
@@ -56,7 +56,7 @@ let Fans = new FansBase('fans', new Schema({
         type : String
     },
     created_time : {
-        type : Number,
+        type : Date,
         required : true
     }
 }));

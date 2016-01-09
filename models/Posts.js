@@ -54,7 +54,7 @@ const Comment = new Schema({
         type : String
     },
     created_time : {
-        type : Number
+        type : Date
     },
     likes_total : {
         type : Number,
@@ -116,7 +116,7 @@ let Posts = new PostsBase('posts', new Schema({
         type : String
     },
     created_time : {
-        type : Number,
+        type : Date,
     }
 }));
 
