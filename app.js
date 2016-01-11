@@ -33,20 +33,20 @@ function getAllPosts(){
                         posts.data.push(p);
                     });
 
-                    const query = _.map(posts.data, (post) => {
-                        let content = FBManager.getPostContent(post);
-                        content.post_id = post.id;
-                        content.created_time = getTimeStamp(post.created_time);
-                        return content;
-                    });
+                    const querys = _.chunk(_.uniq(_.map(posts.data, (post) => {
+                        let c = FBManager.getPostContent(post);
+                        c.post_id = post.id;
+                        c.created_time = getTimeStamp(post.created_time);
+                        return c;
+                    }), 'post_id'), 5000);
 
                     fanspage.lock = false;
                     fanspage.nextpage = 'done';
 
-                    yield [
-                        Posts.create(query),
-                        fanspage.syncSave()
-                    ];
+                    yield _.map(querys, (query) => {
+                        return Posts.create(query);
+                    });
+                    yield fanspage.syncSave();
                     yield Logs.commit({
                         type : 'addposts',
                         created_time : now(),
