@@ -3,13 +3,23 @@ import co from 'co';
 import _ from 'lodash';
 import FBManager from './lib/FBBase';
 import ErrorManager from './lib/ErrorBase';
-import { Fans, Posts, Logs } from './models';
+import { Fans, Posts, Logs } from '../facebook-bot/src/models';
 import { getTimeStamp, now } from './lib/TimeBase';
 
 const fields = 'message,created_time,story,link,full_picture,comments,picture,from';
 
 CronTab.createJob('*/20 * * * * * ', getAllPosts);
 
+function getPostLikeTotal(){
+    co(function* (){
+        let posts = yield Fans.listAll({
+
+        });
+    });
+}
+/**
+ *  取回單一粉絲團所有的文章
+* **/
 function getAllPosts(){
     co(function* (){
         let fanspage = yield Fans.show({
